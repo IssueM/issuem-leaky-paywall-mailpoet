@@ -41,21 +41,25 @@ function issuem_leaky_paywall_mailpoet_plugins_loaded() {
 		define( 'ISSUEM_ACTIVE_LP_MP', true );
 	else
 		define( 'ISSUEM_ACTIVE_LP_MP', false );
-
-	require_once( 'class.php' );
-
-	// Instantiate the Pigeon Pack class
-	if ( class_exists( 'IssueM_Leaky_Paywall_MailPoet' ) ) {
 		
-		global $dl_pluginissuem_leaky_paywall_mailpoet;
-		
-		$dl_pluginissuem_leaky_paywall_mailpoet = new IssueM_Leaky_Paywall_MailPoet();
-		
-		require_once( 'functions.php' );
+	if ( is_plugin_active( 'wysija-newsletters/index.php' ) ) {
+	
+		require_once( 'class.php' );
+	
+		// Instantiate the Pigeon Pack class
+		if ( class_exists( 'IssueM_Leaky_Paywall_MailPoet' ) ) {
 			
-		//Internationalization
-		load_plugin_textdomain( 'issuem-lp-mp', false, ISSUEM_LP_MP_REL_DIR . '/i18n/' );
+			global $dl_pluginissuem_leaky_paywall_mailpoet;
 			
+			$dl_pluginissuem_leaky_paywall_mailpoet = new IssueM_Leaky_Paywall_MailPoet();
+			
+			require_once( 'functions.php' );
+				
+			//Internationalization
+			load_plugin_textdomain( 'issuem-lp-mp', false, ISSUEM_LP_MP_REL_DIR . '/i18n/' );
+				
+		}
+	
 	}
 
 }
