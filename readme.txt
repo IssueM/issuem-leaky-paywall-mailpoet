@@ -1,15 +1,19 @@
-=== IssueM - Leaky Paywall - MailPoet ===
+=== IssueM - Leaky Paywall - MailPoet Addon ===
 Contributors: layotte
-Tags: magazine, issue, manager, paywall, leaky
+Tags: mailpoet, wysija, email, subscriber, management, wordpress, magazine, metered, paywall, leaky, plugin
 Requires at least: 3.0
 Tested up to: 3.7
 Stable tag: 1.0.0
 
-Allow Subscriber Meta to IssueM's Leaky Paywall. More info at http://issuem.com
+Integrate MailPoet (formerly WYSIJA) email list management into IssueM's Leaky Paywall WordPress plugin.
+More info at http://LeakyPW.com
 
 == Description ==
 
-Allow Subscriber to IssueM's Leaky Paywall. More info at http://issuem.com
+This plugin allows you to choose which MailPoet list you would like to add a new subscriber to when someone pays and subscribes using IssueM's Leaky Paywall plugin.
+You can also choose which MailPoet list an expired subscriber demotes to, preserving their email address for future use.
+
+More info at http://LeakyPW.com
 
 == Installation ==
 
@@ -18,7 +22,7 @@ Allow Subscriber to IssueM's Leaky Paywall. More info at http://issuem.com
 
 == Frequently Asked Questions ==
 
-= What are the minimum requirements for IssueM's Leaky Paywall - MailPoet? =
+= What are the minimum requirements for IssueM's Leaky Paywall - MailPoet Addon =
 
 You must have:
 
@@ -36,7 +40,7 @@ You must have:
 
 == License ==
 
-IssueM - Leaky Paywall - MailPoet 
+IssueM - Leaky Paywall - MailPoet Addon
 Copyright (C) 2011 The Complete Website, LLC.
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
