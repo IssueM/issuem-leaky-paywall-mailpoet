@@ -5,7 +5,7 @@ Requires at least: 3.0
 Tested up to: 3.7
 Stable tag: 1.0.0
 
-Integrate MailPoet (formerly WYSIJA) email list management into IssueM's Leaky Paywall WordPress plugin.
+Integrate MailPoet's (formerly WYSIJA) email list management plugin into IssueM's Leaky Paywall WordPress plugin.
 More info at http://LeakyPW.com
 
 == Description ==
