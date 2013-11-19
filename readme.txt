@@ -1,5 +1,5 @@
 === IssueM - Leaky Paywall - MailPoet Addon ===
-Contributors: layotte
+Contributors: layotte, peterericson
 Tags: mailpoet, wysija, email, subscriber, management, wordpress, magazine, metered, paywall, leaky, plugin
 Requires at least: 3.0
 Tested up to: 3.7
