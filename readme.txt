@@ -15,6 +15,8 @@ You can also choose which MailPoet list an expired subscriber demotes to, preser
 
 More info at http://LeakyPW.com
 
+You can follow this plugins development on [GitHub](https://github.com/IssueM/issuem-leaky-paywall-mailpoet)
+
 == Installation ==
 
 1. Upload the entire `issuem-leaky-paywall` folder to your `/wp-content/plugins/` folder.
