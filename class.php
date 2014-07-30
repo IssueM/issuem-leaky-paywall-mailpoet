@@ -1,8 +1,8 @@
 <?php
 /**
- * Registers IssueM's Leaky Paywall - MailPoet class
+ * Registers zeen101's Leaky Paywall - MailPoet class
  *
- * @package IssueM's Leaky Paywall - MailPoet
+ * @package zeen101's Leaky Paywall - MailPoet
  * @since 1.0.0
  */
 
@@ -11,9 +11,9 @@
  *
  * @since 1.0.0
  */
-if ( ! class_exists( 'IssueM_Leaky_Paywall_MailPoet' ) ) {
+if ( ! class_exists( 'Leaky_Paywall_MailPoet' ) ) {
 	
-	class IssueM_Leaky_Paywall_MailPoet {
+	class Leaky_Paywall_MailPoet {
 		
 		/**
 		 * Class constructor, puts things in motion
@@ -24,12 +24,12 @@ if ( ! class_exists( 'IssueM_Leaky_Paywall_MailPoet' ) ) {
 					
 			$settings = $this->get_settings();
 			
-			add_action( 'issuem_leaky_paywall_settings_form', array( $this, 'settings_div' ) );
-			add_action( 'issuem_leaky_paywall_update_settings', array( $this, 'update_settings_div' ) );
+			add_action( 'leaky_paywall_settings_form', array( $this, 'settings_div' ) );
+			add_action( 'leaky_paywall_update_settings', array( $this, 'update_settings_div' ) );
 			
-			add_action( 'issuem_leaky_paywall_new_subscriber', array( $this, 'process_subscriber_list' ), 10, 4 );
-			add_action( 'issuem_leaky_paywall_update_subscriber', array( $this, 'process_subscriber_list' ), 10, 4 );
-			add_action( 'issuem_leaky_paywall_update_subscriber_column', array( $this, 'process_subscriber_update' ), 10, 3 );
+			add_action( 'leaky_paywall_new_subscriber', array( $this, 'process_subscriber_list' ), 10, 4 );
+			add_action( 'leaky_paywall_update_subscriber', array( $this, 'process_subscriber_list' ), 10, 4 );
+			add_action( 'leaky_paywall_update_subscriber_column', array( $this, 'process_subscriber_update' ), 10, 3 );
 			
 		}
 		
@@ -41,7 +41,7 @@ if ( ! class_exists( 'IssueM_Leaky_Paywall_MailPoet' ) ) {
 		    else
 		    	$list_id = $settings['expired_list'];
 		    	
-		    $user_data = apply_filters( 'issuem_leaky_paywall_mailpoet_user_data', array( 'email' => $email ) );
+		    $user_data = apply_filters( 'leaky_paywall_mailpoet_user_data', array( 'email' => $email ) );
 		    $data_subscriber = array(
 		      'user' => $user_data,
 		      'user_list' => array( 'list_ids' => array( $list_id ) )
@@ -54,7 +54,7 @@ if ( ! class_exists( 'IssueM_Leaky_Paywall_MailPoet' ) ) {
 			$settings = $this->get_settings();
 			
 			if ( 'payment_status' === $column ) {
-			    $user_data = apply_filters( 'issuem_leaky_paywall_mailpoet_user_data', array( 'email' => $email ) );
+			    $user_data = apply_filters( 'leaky_paywall_mailpoet_user_data', array( 'email' => $email ) );
 				
 				$model_user = WYSIJA::get( 'user','model' );
 				$user_get = $model_user->getOne( false, array( 'email' => trim( $email ) ) );
@@ -82,7 +82,7 @@ if ( ! class_exists( 'IssueM_Leaky_Paywall_MailPoet' ) ) {
 		}
 		
 		/**
-		 * Get IssueM's Leaky Paywall - MailPoet options
+		 * Get zeen101's Leaky Paywall - MailPoet options
 		 *
 		 * @since 1.0.0
 		 */
@@ -93,7 +93,7 @@ if ( ! class_exists( 'IssueM_Leaky_Paywall_MailPoet' ) ) {
 				'expired_list' => '',
 			);
 		
-			$defaults = apply_filters( 'issuem_leaky_paywall_mailpoet_default_settings', $defaults );
+			$defaults = apply_filters( 'leaky_paywall_mailpoet_default_settings', $defaults );
 			
 			$settings = get_option( 'issuem-leaky-paywall-mailpoet' );
 												
@@ -102,7 +102,7 @@ if ( ! class_exists( 'IssueM_Leaky_Paywall_MailPoet' ) ) {
 		}
 		
 		/**
-		 * Update IssueM's Leaky Paywall options
+		 * Update zeen101's Leaky Paywall options
 		 *
 		 * @since 1.0.0
 		 */
@@ -113,7 +113,7 @@ if ( ! class_exists( 'IssueM_Leaky_Paywall_MailPoet' ) ) {
 		}
 		
 		/**
-		 * Create and Display IssueM settings page
+		 * Create and Display settings page
 		 *
 		 * @since 1.0.0
 		 */
@@ -132,7 +132,7 @@ if ( ! class_exists( 'IssueM_Leaky_Paywall_MailPoet' ) ) {
                 
                 <div class="inside">
                 
-                <table id="issuem_leaky_paywall_ip_exceptions">
+                <table id="leaky_paywall_ip_exceptions">
                 
                     <tr>
                         <th><?php _e( 'Subscriber List', 'issuem-lp-mp' ); ?></th>
@@ -142,7 +142,7 @@ if ( ! class_exists( 'IssueM_Leaky_Paywall_MailPoet' ) ) {
 						$model_list = WYSIJA::get('list','model');
 						$wysija_lists = $model_list->get(array('name','list_id'),array('is_enabled'=>1));
 						if ( !empty( $wysija_lists ) ) {
-							echo '<select name="issuem_leaky_paywall_mailpoet_subscriber_list">';
+							echo '<select name="leaky_paywall_mailpoet_subscriber_list">';
 						    echo '<option value="-1" ' . selected( '-1', $settings['expired_list'], false ). '>'.__( 'Select List', 'issuem-lp-mp' ) ."</input>";
 							foreach($wysija_lists as $list){
 							    echo '<option value="'.$list['list_id'].'" ' . selected( $list['list_id'], $settings['subscriber_list'], false ). '>'.$list['name'] ."</input>";
@@ -159,7 +159,7 @@ if ( ! class_exists( 'IssueM_Leaky_Paywall_MailPoet' ) ) {
                         <td>
                         <?php
 						if ( !empty( $wysija_lists ) ) {
-							echo '<select name="issuem_leaky_paywall_mailpoet_expired_list">';
+							echo '<select name="leaky_paywall_mailpoet_expired_list">';
 						    echo '<option value="-1" ' . selected( '-1', $settings['expired_list'], false ). '>'.__( 'Select List', 'issuem-lp-mp' ) ."</input>";
 							foreach($wysija_lists as $list){
 							    echo '<option value="'.$list['list_id'].'" ' . selected( $list['list_id'], $settings['expired_list'], false ). '>'.$list['name'] ."</input>";
@@ -174,7 +174,7 @@ if ( ! class_exists( 'IssueM_Leaky_Paywall_MailPoet' ) ) {
                 </table>
                                                                   
                 <p class="submit">
-                    <input class="button-primary" type="submit" name="update_issuem_leaky_paywall_settings" value="<?php _e( 'Save Settings', 'issuem-lp-mp' ) ?>" />
+                    <input class="button-primary" type="submit" name="update_leaky_paywall_settings" value="<?php _e( 'Save Settings', 'issuem-lp-mp' ) ?>" />
                 </p>
 
                 </div>
@@ -189,13 +189,13 @@ if ( ! class_exists( 'IssueM_Leaky_Paywall_MailPoet' ) ) {
 			// Get the user options
 			$settings = $this->get_settings();
 				
-			if ( !empty( $_REQUEST['issuem_leaky_paywall_mailpoet_subscriber_list'] ) )
-				$settings['subscriber_list'] = $_REQUEST['issuem_leaky_paywall_mailpoet_subscriber_list'];
+			if ( !empty( $_REQUEST['leaky_paywall_mailpoet_subscriber_list'] ) )
+				$settings['subscriber_list'] = $_REQUEST['leaky_paywall_mailpoet_subscriber_list'];
 			else
 				$settings['subscriber_list'] = '';
 				
-			if ( !empty( $_REQUEST['issuem_leaky_paywall_mailpoet_expired_list'] ) )
-				$settings['expired_list'] = $_REQUEST['issuem_leaky_paywall_mailpoet_expired_list'];
+			if ( !empty( $_REQUEST['leaky_paywall_mailpoet_expired_list'] ) )
+				$settings['expired_list'] = $_REQUEST['leaky_paywall_mailpoet_expired_list'];
 			else
 				$settings['expired_list'] = '';
 			

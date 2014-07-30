@@ -1,6 +1,6 @@
 <?php
 /**
- * @package IssueM's Leaky Paywall - MailPoet
+ * @package zeen101's Leaky Paywall - MailPoet
  * @since 1.0.0
  */
 
