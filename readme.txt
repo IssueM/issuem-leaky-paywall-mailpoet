@@ -2,7 +2,7 @@
 Contributors: layotte, peterericson
 Tags: mailpoet, wysija, email, subscriber, management, wordpress, magazine, metered, paywall, leaky, plugin
 Requires at least: 3.0
-Tested up to: 3.9
+Tested up to: 4.1 
 Stable tag: 1.0.1
 
 Integrate MailPoet's (formerly WYSIJA) email list management plugin into zeen101's Leaky Paywall WordPress plugin.
