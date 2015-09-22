@@ -5,7 +5,7 @@ Requires at least: 3.0
 Tested up to: 4.1 
 Stable tag: 1.0.1
 
-Integrate MailPoet's (formerly WYSIJA) email list management plugin into zeen101's Leaky Paywall WordPress plugin.
+Integrate MailPoet's (formerly WYSIJA) email list management plugin into zeen101's <a href="https://zeen101.com/leakypaywall/">Leaky Paywall</a> WordPress plugin.
 More info at http://zeen101.com
 
 == Description ==
