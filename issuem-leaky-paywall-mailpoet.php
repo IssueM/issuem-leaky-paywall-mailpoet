@@ -37,12 +37,10 @@ define( 'LP_MP_REL_DIR', 	dirname( LP_MP_BASENAME ) );
 function leaky_paywall_mailpoet_plugins_loaded() {
 	
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-	if ( is_plugin_active( 'issuem/issuem.php' ) )
-		define( 'ACTIVE_LP_MP', true );
-	else
-		define( 'ACTIVE_LP_MP', false );
 		
-	if ( is_plugin_active( 'wysija-newsletters/index.php' ) ) {
+	if ( is_plugin_active( 'wysija-newsletters/index.php' )
+		&& ( is_plugin_active( 'issuem-leaky-paywall/issuem-leaky-paywall.php' ) 
+			|| is_plugin_active( 'leaky-paywall/leaky-paywall.php' ) ) ) {
 	
 		require_once( 'class.php' );
 	
@@ -60,7 +58,20 @@ function leaky_paywall_mailpoet_plugins_loaded() {
 				
 		}
 	
+	} else {
+	
+		add_action( 'admin_notices', 'leaky_paywall_mailpoet_requirement_nag' );
+		
 	}
+
 
 }
 add_action( 'plugins_loaded', 'leaky_paywall_mailpoet_plugins_loaded', 4815162342 ); //wait for the plugins to be loaded before init
+
+function leaky_paywall_mailpoet_requirement_nag() {
+	?>
+	<div id="leaky-paywall-requirement-nag" class="update-nag">
+		<?php _e( 'You must have the Leaky Paywall plugin and the MailPoet plugin activated to use the Leaky Paywall MailPoet plugin.' ); ?>
+	</div>
+	<?php
+}
