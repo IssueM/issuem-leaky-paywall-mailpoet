@@ -2,8 +2,8 @@
 Contributors: layotte, peterericson
 Tags: mailpoet, wysija, email, subscriber, management, wordpress, magazine, metered, paywall, leaky, plugin
 Requires at least: 3.0
-Tested up to: 4.1 
-Stable tag: 1.0.1
+Tested up to: 4.5 
+Stable tag: 1.1.0
 
 Integrate MailPoet's (formerly WYSIJA) email list management plugin into zeen101's <a href="https://zeen101.com/leakypaywall/">Leaky Paywall</a> WordPress plugin.
 More info at http://zeen101.com
@@ -37,6 +37,9 @@ You must have:
 * Like IssueM, Leaky Paywall is GPL
 
 == Changelog ==
+= 1.1.0 =
+* Updating for new public release of Leaky Paywall
+
 = 1.0.1 =
 * Updating IssueM references to point to zeen101
 
