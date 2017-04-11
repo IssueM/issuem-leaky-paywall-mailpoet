@@ -11,7 +11,7 @@ Plugin Name: Leaky Paywall - MailPoet
 Plugin URI: http://zeen101.com/
 Description: A premium addon for the Leaky Paywall for WordPress plugin.
 Author: zeen101 Development Team
-Version: 1.1.0
+Version: 1.2.0
 Author URI: http://zeen101.com/
 Tags:
 */
@@ -22,8 +22,8 @@ if ( !defined( 'ZEEN101_STORE_URL' ) )
 	
 define( 'LP_MP_NAME', 		'Leaky Paywall - Subscriber MailPoet' );
 define( 'LP_MP_SLUG', 		'leaky-paywall-mailpoet' );
-define( 'LP_MP_VERSION', 	'1.1.0' );
-define( 'LP_MP_DB_VERSION', '1.0.0' );
+define( 'LP_MP_VERSION', 	'1.2.0' );
+define( 'LP_MP_DB_VERSION', 	'1.0.0' );
 define( 'LP_MP_URL', 		plugin_dir_url( __FILE__ ) );
 define( 'LP_MP_PATH', 		plugin_dir_path( __FILE__ ) );
 define( 'LP_MP_BASENAME', 	plugin_basename( __FILE__ ) );
