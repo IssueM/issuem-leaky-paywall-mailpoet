@@ -27,58 +27,75 @@ if ( ! class_exists( 'Leaky_Paywall_MailPoet' ) ) {
 			add_action( 'leaky_paywall_settings_form', array( $this, 'settings_div' ) );
 			add_action( 'leaky_paywall_update_settings', array( $this, 'update_settings_div' ) );
 			
-			add_action( 'leaky_paywall_new_subscriber', array( $this, 'process_subscriber_list' ), 10, 4 );
-			add_action( 'leaky_paywall_update_subscriber', array( $this, 'process_subscriber_list' ), 10, 4 );
-			add_action( 'leaky_paywall_update_subscriber_column', array( $this, 'process_subscriber_update' ), 10, 3 );
+			add_action( 'leaky_paywall_new_subscriber', array( $this, 'process_subscriber_list' ), 10, 5 );
+			add_action( 'leaky_paywall_update_subscriber', array( $this, 'process_subscriber_list' ), 10, 5 );
+			
+			add_action( 'update_leaky_paywall_subscriber', array( $this, 'process_subscriber_table_changes' ), 10 );
+			add_action( 'add_leaky_paywall_subscriber', array( $this, 'process_subscriber_table_changes' ), 10 );
 			
 		}
 		
-		function process_subscriber_list( $email, $query, $customer, $args ) {
+		function process_subscriber_list( $user_id, $email, $meta, $customer_id, $meta_args ) {
 			$settings = $this->get_settings();
 		 		    
-		    if ( !empty( $args['payment_status'] ) && 'active' === $args['payment_status'] )
+		    if ( !empty( $meta['payment_status'] ) && 'active' === $meta['payment_status'] ) {
 		    	$list_id = $settings['subscriber_list'];
-		    else
+		    } else {
 		    	$list_id = $settings['expired_list'];
+		    }
 		    	
 		    $user_data = apply_filters( 'leaky_paywall_mailpoet_user_data', array( 'email' => $email ) );
 		    $data_subscriber = array(
 		      'user' => $user_data,
 		      'user_list' => array( 'list_ids' => array( $list_id ) )
 		    );
-		    $helper_user = WYSIJA::get('user','helper');
-		    $helper_user->addSubscriber($data_subscriber);
+		    $helper_user = WYSIJA::get( 'user', 'helper' );
+		    $return = $helper_user->addSubscriber( $data_subscriber );
 		}
 		
-		function process_subscriber_update( $email, $column, $value ) {
+		function process_subscriber_table_changes( $user_id ) {
+			
+			global $blog_id;
+			
+			$lp_settings = get_leaky_paywall_settings();
 			$settings = $this->get_settings();
 			
-			if ( 'payment_status' === $column ) {
-			    $user_data = apply_filters( 'leaky_paywall_mailpoet_user_data', array( 'email' => $email ) );
-				
-				$model_user = WYSIJA::get( 'user','model' );
-				$user_get = $model_user->getOne( false, array( 'email' => trim( $email ) ) );
-
-			    if ( 'active' === $value ) {
-				    $data_subscriber = array(
-				      'user' => $user_data,
-				      'user_list' => array( 'list_ids' => array( $settings['subscriber_list'] ) )
-				    );
-				    $helper_user = WYSIJA::get('user','helper');
-				    $helper_user->addSubscriber($data_subscriber);
-				    $helper_user->removeFromLists( array( $settings['expired_list'] ), array( $user_get['user_id'] ) );
-				    
-			    } else {
-				    $data_subscriber = array(
-				      'user' => $user_data,
-				      'user_list' => array( 'list_ids' => array( $settings['expired_list'] ) )
-				    );
-				    $helper_user = WYSIJA::get('user','helper');
-				    $helper_user->addSubscriber($data_subscriber);	
-				    $helper_user->removeFromLists( array( $settings['subscriber_list'] ), array( $user_get['user_id'] ) );
-		    	}
-				
+			if ( is_multisite_premium() && !is_main_site( $blog_id ) ) {
+				$site = '_' . $blog_id;
+			} else {
+				$site = '';
 			}
+			
+			$mode = 'off' === $lp_settings['test_mode'] ? 'live' : 'test';
+			
+			$user = get_userdata( $user_id );
+			
+			$payment_status = get_user_meta( $user_id, '_issuem_leaky_paywall_' . $mode . '_payment_status' . $site, true );
+			
+		    $user_data = apply_filters( 'leaky_paywall_mailpoet_user_data', array( 'email' => $user->user_email ) );
+			
+			$model_user = WYSIJA::get( 'user','model' );
+			$user_get = $model_user->getOne( false, array( 'email' => trim( $user->user_email ) ) );
+		
+		    if ( 'active' === $payment_status || 'Active' === $payment_status ) {
+			    $data_subscriber = array(
+			      'user' => $user_data,
+			      'user_list' => array( 'list_ids' => array( $settings['subscriber_list'] ) )
+			    );
+			    $helper_user = WYSIJA::get( 'user', 'helper' );
+			    $helper_user->addSubscriber( $data_subscriber );
+			    $helper_user->removeFromLists( array( $settings['expired_list'] ), array( $user_get['user_id'] ) );
+			    
+		    } else {
+			    $data_subscriber = array(
+			      'user' => $user_data,
+			      'user_list' => array( 'list_ids' => array( $settings['expired_list'] ) )
+			    );
+			    $helper_user = WYSIJA::get( 'user','helper' );
+			    $helper_user->addSubscriber( $data_subscriber );	
+			    $helper_user->removeFromLists( array( $settings['subscriber_list'] ), array( $user_get['user_id'] ) );
+	    	}
+
 		}
 		
 		/**
